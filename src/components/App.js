@@ -1,13 +1,12 @@
+import React from 'react';
+import SumCalculator from './SumCalculator';
 
-import React from "react";
-import './../styles/App.css';
-
-const App = () => {
+function App() {
   return (
     <div>
-        {/* Do not remove the main div */}
+      <SumCalculator />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
