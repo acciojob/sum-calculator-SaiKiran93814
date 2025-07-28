@@ -3,23 +3,22 @@ import React, { useState } from 'react';
 const SumCalculator = () => {
   const [inputValue, setInputValue] = useState(0);
   const [sum, setSum] = useState(0);
+  const [prevValue, setPrevValue] = useState(0); // To track previous input
 
-  const handleInputChange = (e) => {
+  const handleInput = (e) => {
     const newValue = parseFloat(e.target.value);
     if (!isNaN(newValue)) {
-      const prevValue = inputValue;
       const diff = newValue - prevValue;
 
-      // If value increased → add newValue to sum
+      // Update sum based on how value changed
       if (diff > 0) {
         setSum((prevSum) => prevSum + newValue);
-      }
-      // If value decreased → subtract newValue from sum
-      else if (diff < 0) {
+      } else if (diff < 0) {
         setSum((prevSum) => prevSum - newValue);
       }
 
       setInputValue(newValue);
+      setPrevValue(newValue); // Update previous value for next input
     }
   };
 
@@ -29,7 +28,7 @@ const SumCalculator = () => {
       <input
         type="number"
         value={inputValue}
-        onChange={handleInputChange}
+        onInput={handleInput} // Use onInput to catch all changes
         style={styles.input}
       />
       <p>{`Sum: ${sum}`}</p>
