@@ -49,8 +49,8 @@ const SumCalculator = () => {
         Add Number
       </button>
 
-      <p>Numbers: {numbers.length > 0 ? numbers.join(', ') : 'None'}</p>
-      <p>Total Sum: {sum}</p>
+      
+      <p> Sum: {sum}</p>
     </div>
   );
 };
