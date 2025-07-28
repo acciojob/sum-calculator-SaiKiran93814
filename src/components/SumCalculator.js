@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 
 const SumCalculator = () => {
-  const [numbers, setNumbers] = useState([]);
-  const [currentInput, setCurrentInput] = useState('');
+  const [inputValue, setInputValue] = useState(0);
   const [sum, setSum] = useState(0);
 
-  const handleAddNumber = () => {
-    const num = parseFloat(currentInput);
-    if (!isNaN(num)) {
-      const updatedNumbers = [...numbers, num];
-      setNumbers(updatedNumbers);
-      const total = updatedNumbers.reduce((acc, val) => acc + val, 0);
-      setSum(total);
-      setCurrentInput('');
-    }
-  };
-
   const handleInputChange = (e) => {
-    setCurrentInput(e.target.value);
+    const newValue = parseFloat(e.target.value);
+    if (!isNaN(newValue)) {
+      const prevValue = inputValue;
+      const diff = newValue - prevValue;
+
+      // If value increased → add newValue to sum
+      if (diff > 0) {
+        setSum((prevSum) => prevSum + newValue);
+      }
+      // If value decreased → subtract newValue from sum
+      else if (diff < 0) {
+        setSum((prevSum) => prevSum - newValue);
+      }
+
+      setInputValue(newValue);
+    }
   };
 
   return (
@@ -25,16 +28,10 @@ const SumCalculator = () => {
       <h1>Sum Calculator</h1>
       <input
         type="number"
-        value={currentInput}
+        value={inputValue}
         onChange={handleInputChange}
-        onKeyDown={(e) => e.key === 'Enter' && handleAddNumber()}
-        placeholder="Enter a number"
         style={styles.input}
       />
-      <button onClick={handleAddNumber} style={styles.button}>
-        Add Number
-      </button>
-
       <p>{`Sum: ${sum}`}</p>
     </div>
   );
@@ -54,15 +51,6 @@ const styles = {
     padding: '10px',
     width: '60%',
     fontSize: '16px',
-    marginRight: '10px',
-  },
-  button: {
-    padding: '10px 15px',
-    fontSize: '16px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
   },
 };
 
