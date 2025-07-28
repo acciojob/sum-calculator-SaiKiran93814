@@ -37,7 +37,7 @@ const SumCalculator = () => {
 
   return (
     <div style={styles.container}>
-      <h2>Sum Calculator</h2>
+      <h1>Sum Calculator</h1>
       <input
         type="number"
         value={currentInput}
@@ -49,8 +49,8 @@ const SumCalculator = () => {
         Add Number
       </button>
 
-      <h3>Numbers: {numbers.join(', ')}</h3>
-      <h3>Total Sum: {sum}</h3>
+      <p>Numbers: {numbers.length > 0 ? numbers.join(', ') : 'None'}</p>
+      <p>Total Sum: {sum}</p>
     </div>
   );
 };
