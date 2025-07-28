@@ -5,13 +5,12 @@ const SumCalculator = () => {
   const [currentInput, setCurrentInput] = useState('');
   const [sum, setSum] = useState(0);
 
-  // Async sum calculation using useEffect
   useEffect(() => {
     const calculateSum = async () => {
       const total = await new Promise((resolve) => {
         setTimeout(() => {
           resolve(numbers.reduce((acc, val) => acc + val, 0));
-        }, 0); // Minimal delay to simulate async without UI blocking
+        }, 0);
       });
       setSum(total);
     };
@@ -24,7 +23,7 @@ const SumCalculator = () => {
   }, [numbers]);
 
   const handleAddNumber = () => {
-    const num = parseInt(currentInput);
+    const num = parseFloat(currentInput);
     if (!isNaN(num)) {
       setNumbers((prev) => [...prev, num]);
       setCurrentInput('');
@@ -42,6 +41,7 @@ const SumCalculator = () => {
         type="number"
         value={currentInput}
         onChange={handleInputChange}
+        onKeyDown={(e) => e.key === 'Enter' && handleAddNumber()}
         placeholder="Enter a number"
         style={styles.input}
       />
@@ -49,8 +49,8 @@ const SumCalculator = () => {
         Add Number
       </button>
 
-      
-      <p> Sum: {sum}</p>
+      {/* Ensure exact text match with no space issues */}
+      <p>{`Sum: ${sum}`}</p>
     </div>
   );
 };
