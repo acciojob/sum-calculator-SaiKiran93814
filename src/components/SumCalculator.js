@@ -1,31 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const SumCalculator = () => {
   const [numbers, setNumbers] = useState([]);
   const [currentInput, setCurrentInput] = useState('');
   const [sum, setSum] = useState(0);
 
-  useEffect(() => {
-    const calculateSum = async () => {
-      const total = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(numbers.reduce((acc, val) => acc + val, 0));
-        }, 0);
-      });
-      setSum(total);
-    };
-
-    if (numbers.length > 0) {
-      calculateSum();
-    } else {
-      setSum(0);
-    }
-  }, [numbers]);
-
   const handleAddNumber = () => {
     const num = parseFloat(currentInput);
     if (!isNaN(num)) {
-      setNumbers((prev) => [...prev, num]);
+      const updatedNumbers = [...numbers, num];
+      setNumbers(updatedNumbers);
+      const total = updatedNumbers.reduce((acc, val) => acc + val, 0);
+      setSum(total);
       setCurrentInput('');
     }
   };
@@ -49,7 +35,6 @@ const SumCalculator = () => {
         Add Number
       </button>
 
-      {/* Ensure exact text match with no space issues */}
       <p>{`Sum: ${sum}`}</p>
     </div>
   );
